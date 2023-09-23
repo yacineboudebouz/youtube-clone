@@ -3,9 +3,17 @@ import { useState, useEffect } from 'react'
 import { Stack, Box, Typography } from '@mui/material'
 import SideBar from './SideBar'
 import Videos from './Videos'
+import { fetchFromApi } from '../utils/fetchFromApi'
+
 
 
 const Feed = () => {
+
+    const [selectedCategory, setSelectedCategory] = useState('New')
+    const [videos, setvideos] = useState([]);
+    useEffect(() => {
+        fetchFromApi(`search?part=snippet&q=${selectedCategory}`).then((data) => setvideos(data.items))
+    }, [selectedCategory])
     return (
         <Stack sx={{ flexDirection: { sx: 'column', md: 'row' } }}>
             <Box sx={{
@@ -13,7 +21,9 @@ const Feed = () => {
                 borderRight: '1px solid #3d3d3d',
                 px: { sx: 0, md: 2 }
             }}>
-                <SideBar />
+                <SideBar selectedCategory={selectedCategory}
+                    setSelectedCategory={setSelectedCategory}
+                />
                 <Typography className='copyright'
                     variant='body2' sx={{ mt: 1.5, color: "#fff" }}>
                     Copyright 2023 Error404
@@ -24,10 +34,10 @@ const Feed = () => {
                     fontWeight='bold' mb={2} sx={{
                         color: 'white'
                     }}>
-                    New  <span style={{ color: '#f31503' }}
+                    {selectedCategory} <span style={{ color: '#f31503' }}
                     >Videos</span>
                 </Typography>
-                <Videos videos={[]} />
+                <Videos videos={videos} />
             </Box>
         </Stack>
     )
