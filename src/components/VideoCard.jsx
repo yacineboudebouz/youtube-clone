@@ -10,10 +10,8 @@ function VideoCard({ video: { id: { videoId }, snippet } }) {
             <Link to={videoId ? `/video/${videoId}` : demoVideoUrl} >
                 <CardMedia image={snippet?.thumbnails?.high?.url}
                     alt={snippet?.title}
-
                     sx={{ width: '100%', height: 180, }}
                 />
-
             </Link>
             <CardContent sx={{ backgroundColor: '#1e1e1e', height: '106px', width: '100%' }}>
                 <Link to={snippet?.videoId ? `/video/${snippet?.videoId}` : demoChannelUrl}>
@@ -24,7 +22,7 @@ function VideoCard({ video: { id: { videoId }, snippet } }) {
                 <Link to={snippet?.channelId ? `/channel/${snippet?.channelId}` : demoChannelUrl}>
                     <Typography variant='subtitle2' fontWeight='bold' color='gray'>
                         {snippet?.channelTitle || demoChannelTitle}
-                        <CheckCircle sx={{ fontSize: 12, color: 'gray', ml: '5px' }}>
+                        <CheckCircle sx={{ fontSize: 12, color: 'gray', ml: '5px', mr: '5px' }}>
 
                         </CheckCircle>
                     </Typography>
